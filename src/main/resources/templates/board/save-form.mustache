@@ -1,0 +1,100 @@
+{{> layout/header}}
+
+<div class="container p-5">
+
+    <!-- 요청을 하면 localhost:8080/board/save POST로 요청됨
+    title=사용자입력값&content=사용자값 -->
+    <div class="card">
+        <div class="card-header"><b>글쓰기 화면입니다</b></div>
+        <div class="card-body">
+            <form id="contentForm" action="/board/save" method="post" enctype="application/x-www-form-urlencoded">
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Enter title" name="title">
+                </div>
+                <div class="editor-menu">
+                    <button id="btn-bold" type="button" style="border-radius: 4px">
+                        <b>B</b>
+                    </button>
+                    <button id="btn-italic" type="button" style="border-radius: 4px">
+                        <i>I</i>
+                    </button>
+                    <button id="btn-underline" type="button" style="border-radius: 4px">
+                        <u>U</u>
+                    </button>
+                    <button id="btn-strike" type="button" style="border-radius: 4px">
+                        <s>S</s>
+                    </button>
+                    <button id="btn-ordered-list" type="button" style="border-radius: 4px">
+                        OLs
+                    </button>
+                    <button id="btn-unordered-list" type="button" style="border-radius: 4px">
+                        UL
+                    </button>
+                    <button id="btn-image" type="button" style="border-radius: 4px">
+                        IMG
+                    </button>
+                </div>
+                <div id="content" contenteditable="true"
+                     style="padding: 16px 24px;border: 1px solid #D6D6D6;border-radius: 4px;"></div>
+                <input type="hidden" name="content" id="inputContent">
+                <script>
+
+                    // id값을 가져와서 변수에 할당합니다.
+                    const content = document.getElementById('content');
+                    const inputContent = document.getElementById('inputContent');
+                    const btnBold = document.getElementById('btn-bold');
+                    const btnItalic = document.getElementById('btn-italic');
+                    const btnUnderline = document.getElementById('btn-underline');
+                    const btnStrike = document.getElementById('btn-strike');
+                    const btnOrderedList = document.getElementById('btn-ordered-list');
+                    const btnUnorderedList = document.getElementById('btn-unordered-list');
+                    const contentForm = document.getElementById('contentForm');
+
+                    // 버튼을 클릭시 발동되는 이벤트 리스터로, 텍스트의 스타일을 변경합니다.
+                    btnBold.addEventListener('click', function () {
+                        setStyle('bold');
+                    });
+
+                    btnItalic.addEventListener('click', function () {
+                        setStyle('italic');
+                    });
+
+                    btnUnderline.addEventListener('click', function () {
+                        setStyle('underline');
+                    });
+
+                    btnStrike.addEventListener('click', function () {
+                        setStyle('strikeThrough')
+                    });
+
+                    btnOrderedList.addEventListener('click', function () {
+                        setStyle('insertOrderedList');
+                    });
+
+                    btnUnorderedList.addEventListener('click', function () {
+                        setStyle('insertUnorderedList');
+                    });
+
+                    // 지정된 스타일을 에디터에 적용하는 함수
+                    function setStyle(style) {
+                        document.execCommand(style); // execCommand를 사용하여 스타일 적용
+                        focusEditor(); // 스타일 적용 후 에디터에 포커스 유지
+                    }
+
+                    // 버튼 클릭 시 에디터가 포커스를 잃기 때문에 다시 에디터에 포커스를 해줌
+                    function focusEditor() {
+                        content.focus({preventScroll: true});
+                    }
+
+                    // 폼 제출 시 content의 HTML을 inputContent에 복사
+                    contentForm.addEventListener('submit', function () {
+                        inputContent.value = content.innerHTML;
+                    });
+                </script>
+                <button type="submit" class="btn btn-primary form-control" style="margin-top: 15px">글쓰기완료</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{> layout/footer}}
