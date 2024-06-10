@@ -1,24 +1,27 @@
 {{> layout/header}}
 
-<div class="p-5" style="display: flex; justify-content: center;">
-    <div class="card" style="width: 500px">
-        <div class="card-header"><b>로그인을 해주세요</b></div>
+
+<div class="p-5" style="display: flex; justify-content: center; align-items: center;">
+    <div class="card" style="width: 300px; height: 380px;">
+        <div class="card-header text-center"><b>로그인을 해주세요</b></div>
         <div class="card-body">
             <form action="/login" method="post" enctype="application/x-www-form-urlencoded">
-                <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Enter username" name="username">
+                <div class="mb-3" style="margin-top: auto; margin-bottom: 10px;">
+                    <label for="username" style="font-weight: bold;">아이디</label>
+                    <input type="text" id="username" class="form-control" placeholder="아이디를 입력하세요" name="username">
                 </div>
                 <div class="mb-3">
-                    <input type="password" class="form-control" placeholder="Enter password" name="password">
+                    <label for="password" style="font-weight: bold;">비밀번호</label>
+                    <input type="password" id="password" class="form-control" placeholder="비밀번호를 입력하세요" name="password">
                 </div>
-                <button type="submit" class="btn btn-primary form-control mb-3">로그인</button>
+                <button type="submit" class="btn btn-primary" style="width: 240px; margin-left: 13px; margin-bottom: 3px">로그인</button>
             </form>
-            <div style="display: flex; justify-content: center;">
+            <div>
                 <a href="">
-                    <img class="btn" style="width: 200px; height: 60px; margin-right: 15px;" src="/images/kakao.png">
+                    <img class="btn" style="width: 100%; height: 52px;" src="/images/kakao.png">
                 </a>
                 <a href="">
-                    <img class="btn" style="width: 180px; height: 60px;" src="/images/naver.png">
+                    <img class="btn" style="width: 100%; height: 52px;" src="/images/naver.png">
                 </a>
             </div>
         </div>

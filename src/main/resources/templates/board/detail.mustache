@@ -1,7 +1,5 @@
 {{> layout/header}}
-
 <div class="container p-5">
-
     <!-- 수정삭제버튼 -->
     <div class="d-flex justify-content-end">
         <button class="btn btn-warning me-1">수정</button>
@@ -14,7 +12,7 @@
     <!-- 게시글내용 -->
     <div>
         <h2><b>제목자리</b></h2>
-        <hr />
+        <hr/>
         <div class="m-4 p-2">
             내용입니다
         </div>
@@ -25,86 +23,6 @@
         <!-- 댓글등록 -->
         <div class="card-body">
             <form id="commentForm" action="/reply/save" method="post" enctype="application/x-www-form-urlencoded">
-                <div class="editor-menu">
-                    <button id="btn-bold" type="button" style="border-radius: 4px">
-                        <b>B</b>
-                    </button>
-                    <button id="btn-italic" type="button" style="border-radius: 4px">
-                        <i>I</i>
-                    </button>
-                    <button id="btn-underline" type="button" style="border-radius: 4px">
-                        <u>U</u>
-                    </button>
-                    <button id="btn-strike" type="button" style="border-radius: 4px">
-                        <s>S</s>
-                    </button>
-                    <button id="btn-ordered-list" type="button" style="border-radius: 4px">
-                        OLs
-                    </button>
-                    <button id="btn-unordered-list" type="button" style="border-radius: 4px">
-                        UL
-                    </button>
-                    <button id="btn-image" type="button" style="border-radius: 4px">
-                        IMG
-                    </button>
-                </div>
-                <div id="comment" contenteditable="true"
-                     style="padding: 16px 24px;border: 1px solid #D6D6D6;border-radius: 4px;"></div>
-                <input type="hidden" name="comment" id="inputComment">
-                <script>
-
-                    // id값을 가져와서 변수에 할당합니다.
-                    const comment = document.getElementById('comment');
-                    const inputComment = document.getElementById('inputComment');
-                    const btnBold = document.getElementById('btn-bold');
-                    const btnItalic = document.getElementById('btn-italic');
-                    const btnUnderline = document.getElementById('btn-underline');
-                    const btnStrike = document.getElementById('btn-strike');
-                    const btnOrderedList = document.getElementById('btn-ordered-list');
-                    const btnUnorderedList = document.getElementById('btn-unordered-list');
-                    const commentForm = document.getElementById('commentForm');
-
-                    // 버튼을 클릭시 발동되는 이벤트 리스터로, 텍스트의 스타일을 변경합니다.
-                    btnBold.addEventListener('click', function () {
-                        setStyle('bold');
-                    });
-
-                    btnItalic.addEventListener('click', function () {
-                        setStyle('italic');
-                    });
-
-                    btnUnderline.addEventListener('click', function () {
-                        setStyle('underline');
-                    });
-
-                    btnStrike.addEventListener('click', function () {
-                        setStyle('strikeThrough')
-                    });
-
-                    btnOrderedList.addEventListener('click', function () {
-                        setStyle('insertOrderedList');
-                    });
-
-                    btnUnorderedList.addEventListener('click', function () {
-                        setStyle('insertUnorderedList');
-                    });
-
-                    // 지정된 스타일을 에디터에 적용하는 함수
-                    function setStyle(style) {
-                        document.execCommand(style); // execCommand를 사용하여 스타일 적용
-                        focusEditor(); // 스타일 적용 후 에디터에 포커스 유지
-                    }
-
-                    // 버튼 클릭 시 에디터가 포커스를 잃기 때문에 다시 에디터에 포커스를 해줌
-                    function focusEditor() {
-                        comment.focus({preventScroll: true});
-                    }
-
-                    // 폼 제출 시 comment의 HTML을 inputComment의에 복사
-                    commentForm.addEventListener('submit', function () {
-                        inputComment.value = comment.innerHTML;
-                    });
-                </script>
                 <div class="d-flex justify-content-end">
                     <button type="submit" class="btn btn-outline-primary mt-1">댓글등록</button>
                 </div>
@@ -117,15 +35,35 @@
         </div>
         <div class="list-group">
             <!-- 댓글아이템 -->
-            <div class="list-group-item d-flex justify-content-between align-items-center">
-                <div class="d-flex">
-                    <div class="px-1 me-1 bg-primary text-white rounded">cos</div>
-                    <div>댓글 내용입니다</div>
+            <div>
+                <div class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="px-1 me-1">cos</div>
+                            <div style="margin-left: 12px">댓글 내용입니다</div>
+                        </div>
+                        <div class="btn addSubReplyBtn" style="margin-left: 200px">➕</div>
+                        <form action="/reply/1/delete" method="post">
+                            <button class="btn">🗑</button>
+                        </form>
+                    </div>
+                    <hr>
+                    <div class="reply">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <div>↘ cos</div>
+                                <div style="margin-left: 12px">대댓글 내용입니다.</div>
+                            </div>
+                            <div class="btn addSubReplyBtn" style="margin-left: 200px">➕</div>
+                            <form action="/reply/1/delete" method="post">
+                                <button class="btn">🗑</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div style="margin-top: 13px"></div>
                 </div>
-                <form action="/reply/1/delete" method="post">
-                    <button class="btn">🗑</button>
-                </form>
             </div>
+
             <!-- 댓글아이템 -->
             <div class="list-group-item d-flex justify-content-between align-items-center">
                 <div class="d-flex">
@@ -139,5 +77,51 @@
         </div>
     </div>
 </div>
+<script>
+    // 대댓글 추가 함수
+    function addSubReply() {
+        // 대댓글을 감싸는 div 요소 생성
+        var subReplyDiv = document.createElement("div");
+        subReplyDiv.classList.add("reply"); // 새로운 클래스 추가
+
+        // 대댓글의 왼쪽 마진 계산
+        var marginLeft = 20; // 초기 마진 값
+        var existingReplies = document.querySelectorAll(".reply"); // 현재 존재하는 대댓글 요소들
+        if (existingReplies.length > 0) {
+            // 현재 존재하는 대댓글이 있을 경우
+            var lastReply = existingReplies[existingReplies.length - 1]; // 가장 마지막 대댓글 요소
+            var lastMarginLeft = parseInt(lastReply.style.marginLeft.replace("px", "")); // 가장 마지막 대댓글의 마진 값
+            marginLeft = lastMarginLeft + 20; // 이전 대댓글의 마진 값에 20을 더하여 새로운 마진 값 계산
+        }
+
+        // 대댓글 내용 및 스타일을 설정하여 div 요소에 추가
+        subReplyDiv.innerHTML = `
+        <hr>
+        <div class="d-flex justify-content-between align-items-center" style="margin-left: ${marginLeft}px">
+            <div>
+                <div>↘ cos</div>
+                <div style="margin-left: 12px">대댓글 내용입니다.</div>
+            </div>
+            <div class="btn addSubReplyBtn" style="margin-left: 200px">➕</div>
+            <form action="/reply/1/delete" method="post">
+                <button class="btn">🗑</button>
+            </form>
+        </div>
+        <!-- 추가 대댓글 등록을 위한 폼 등등 -->
+    `;
+
+        // 대댓글을 추가할 부모 요소 선택
+        var parentDiv = document.querySelector(".reply");
+        // 부모 요소에 대댓글 요소 추가
+        parentDiv.appendChild(subReplyDiv);
+    }
+
+    // 모든 대댓글 추가 버튼에 이벤트 추가
+    document.addEventListener("click", function(event) {
+        if (event.target && event.target.classList.contains("addSubReplyBtn")) {
+            addSubReply();
+        }
+    });
+</script>
 
 {{> layout/footer}}

@@ -13,32 +13,31 @@
                 </div>
                 <div class="editor-menu">
                     <button id="btn-bold" type="button" style="border-radius: 4px">
-                        <b>B</b>
+                        <b>굵게</b>
                     </button>
                     <button id="btn-italic" type="button" style="border-radius: 4px">
-                        <i>I</i>
+                        <i>기울기</i>
                     </button>
                     <button id="btn-underline" type="button" style="border-radius: 4px">
-                        <u>U</u>
+                        <u>밑줄</u>
                     </button>
                     <button id="btn-strike" type="button" style="border-radius: 4px">
-                        <s>S</s>
+                        <s>중간선</s>
                     </button>
-                    <button id="btn-ordered-list" type="button" style="border-radius: 4px">
-                        OLs
-                    </button>
-                    <button id="btn-unordered-list" type="button" style="border-radius: 4px">
-                        UL
-                    </button>
+<!--                    <button id="btn-ordered-list" type="button" style="border-radius: 4px">-->
+<!--                        OLs-->
+<!--                    </button>-->
+<!--                    <button id="btn-unordered-list" type="button" style="border-radius: 4px">-->
+<!--                        UL-->
+<!--                    </button>-->
                     <button id="btn-image" type="button" style="border-radius: 4px">
-                        IMG
+                        사진
                     </button>
                 </div>
                 <div id="content" contenteditable="true"
                      style="padding: 16px 24px;border: 1px solid #D6D6D6;border-radius: 4px;"></div>
                 <input type="hidden" name="content" id="inputContent">
                 <script>
-
                     // id값을 가져와서 변수에 할당합니다.
                     const content = document.getElementById('content');
                     const inputContent = document.getElementById('inputContent');
@@ -46,8 +45,8 @@
                     const btnItalic = document.getElementById('btn-italic');
                     const btnUnderline = document.getElementById('btn-underline');
                     const btnStrike = document.getElementById('btn-strike');
-                    const btnOrderedList = document.getElementById('btn-ordered-list');
-                    const btnUnorderedList = document.getElementById('btn-unordered-list');
+                    // const btnOrderedList = document.getElementById('btn-ordered-list');
+                    // const btnUnorderedList = document.getElementById('btn-unordered-list');
                     const contentForm = document.getElementById('contentForm');
 
                     // 버튼을 클릭시 발동되는 이벤트 리스터로, 텍스트의 스타일을 변경합니다.
@@ -67,13 +66,13 @@
                         setStyle('strikeThrough')
                     });
 
-                    btnOrderedList.addEventListener('click', function () {
-                        setStyle('insertOrderedList');
-                    });
-
-                    btnUnorderedList.addEventListener('click', function () {
-                        setStyle('insertUnorderedList');
-                    });
+                    // btnOrderedList.addEventListener('click', function () {
+                    //     setStyle('insertOrderedList');
+                    // });
+                    //
+                    // btnUnorderedList.addEventListener('click', function () {
+                    //     setStyle('insertUnorderedList');
+                    // });
 
                     // 지정된 스타일을 에디터에 적용하는 함수
                     function setStyle(style) {
