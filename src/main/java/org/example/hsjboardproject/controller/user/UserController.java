@@ -30,6 +30,8 @@ public class UserController {
 
     @GetMapping("/logout")
     public String logout() {
+        session.invalidate();
+
         return "redirect:/";
     }
 
@@ -47,12 +49,19 @@ public class UserController {
         return "redirect:/";
     }
 
-    @PostMapping("login")
+    @PostMapping("/login")
     public String login(UserRequest.LoginDTO reqDTO) {
         User user = userService.로그인(reqDTO);
         session.setAttribute("sessionUser", user);
 
-
         return "redirect:/";
+    }
+
+    @PostMapping("/join")
+    public String join(UserRequest.JoinDTO reqDTO) {
+        User user = userService.회원가입(reqDTO);
+        session.setAttribute("sessionUser", user);
+
+        return "redirect:/login-form";
     }
 }

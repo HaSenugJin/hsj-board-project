@@ -1,6 +1,8 @@
 package org.example.hsjboardproject.controller.user;
 
 import lombok.RequiredArgsConstructor;
+import org.example.hsjboardproject._core.errors.exception.Exception400;
+import org.example.hsjboardproject._core.interceptor.PasswordUtil;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -19,14 +21,13 @@ public class UserService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void 회원가입(String email, String username, String password, String name) {
-        User user = User.builder()
-                .email(email)
-                .username(username)
-                .password(password)
-                .name(name)
-                .build();
-        userRepository.save(user);
+    public User 회원가입(UserRequest.JoinDTO reqDTO) {
+        User user = userRepository.findByEmail(reqDTO.getEmail());
+        if (user != null) {
+            throw new Exception400("유저네임이 중복되었습니다.");
+        }
+
+        return userRepository.save(reqDTO.toEntity(PasswordUtil.encode(reqDTO.getPassword())));
     }
 
     public User 로그인(UserRequest.LoginDTO reqDTO) {
@@ -104,16 +105,14 @@ public class UserService {
             // 프로바이더 : kakao
             User user = User.builder()
                     .email(response2.getBody().getProperties().getNickname() + "@kakao.com")
-                    .username(username)
+                    .username(response2.getBody().getProperties().getNickname())
                     .password(UUID.randomUUID().toString())
-                    .name(response2.getBody().getProperties().getNickname())
                     .provider("kakao")
                     .build();
             User returnUser = userRepository.save(user);
             return returnUser;
         }
     }
-
 
     public User 네이버로그인(String code) {
         // 1. code로 카카오에서 토큰 받기 (위임완료) - oauth2.0
@@ -147,7 +146,7 @@ public class UserService {
 
         // 1.6 값 확인
 //        System.out.println(response.getBody().toString());
-
+//        System.out.println(response.getBody().getAccessToken());
         // 2. 토큰으로 사용자 정보 받기 (PK, Email)
         HttpHeaders headers2 = new HttpHeaders();
         headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
@@ -178,9 +177,9 @@ public class UserService {
             // 이메일 : email 받은 값
             // 프로바이더 : kakao
             User user = User.builder()
-                    .username(response2.getBody().getResponse().getName())
                     .password(UUID.randomUUID().toString())
                     .email("naver_" + response2.getBody().getResponse().getEmail())
+                    .username(response2.getBody().getResponse().getName())
                     .provider("naver")
                     .build();
             User returnUser = userRepository.save(user);

@@ -22,7 +22,6 @@ public class User {
     private String email;
     private String username;
     private String password;
-    private String name;
 
     @CreationTimestamp
     private Timestamp createdAt;
@@ -30,12 +29,11 @@ public class User {
     private String provider; // facebook, kakao, apple, naver
 
     @Builder
-    public User(Integer id, String email, String username, String password, String name, String provider, Timestamp createdAt) {
+    public User(Integer id, String email, String username, String password, String provider, Timestamp createdAt) {
         this.id = id;
         this.email = email;
         this.username = username;
         this.password = password;
-        this.name = name;
         this.provider = provider;
         this.createdAt = createdAt;
     }

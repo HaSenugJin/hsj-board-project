@@ -33,6 +33,7 @@ public class NaverResponse {
             private String email;
             private String mobile;
             private String name;
+            private String nicName;
             @JsonProperty("birthyear")
             private String birthYear;
         }

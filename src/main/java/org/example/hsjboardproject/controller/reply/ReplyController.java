@@ -1,4 +1,4 @@
-package org.example.hsjboardproject.controller;
+package org.example.hsjboardproject.controller.reply;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;

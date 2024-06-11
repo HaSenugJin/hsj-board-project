@@ -1,6 +1,5 @@
-package org.example.hsjboardproject.controller;
+package org.example.hsjboardproject.controller.board;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.example.hsjboardproject.controller.user.User;
@@ -16,7 +15,12 @@ public class BoardController {
     @GetMapping("/" )
     public String index() {
         User user = (User) session.getAttribute("sessionUser");
-        System.out.println(user.getUsername());
+        if(user == null) {
+            return "redirect:/login-form";
+        } else {
+            System.out.println(user.getUsername());
+        }
+
         return "index";
     }
 
