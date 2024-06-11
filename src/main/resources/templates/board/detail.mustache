@@ -1,4 +1,5 @@
 {{> layout/header}}
+
 <div class="container p-5">
     <!-- 수정삭제버튼 -->
     <div class="d-flex justify-content-end">
@@ -23,6 +24,7 @@
         <!-- 댓글등록 -->
         <div class="card-body">
             <form id="commentForm" action="/reply/save" method="post" enctype="application/x-www-form-urlencoded">
+                <textarea class="form-control" rows="2" name="comment"></textarea>
                 <div class="d-flex justify-content-end">
                     <button type="submit" class="btn btn-outline-primary mt-1">댓글등록</button>
                 </div>
@@ -42,10 +44,12 @@
                             <div class="px-1 me-1">cos</div>
                             <div style="margin-left: 12px">댓글 내용입니다</div>
                         </div>
-                        <div class="btn addSubReplyBtn" style="margin-left: 200px">➕</div>
-                        <form action="/reply/1/delete" method="post">
-                            <button class="btn">🗑</button>
-                        </form>
+                        <div class="d-flex align-items-center">
+                            <div class="btn addSubReplyBtn">➕</div>
+                            <form action="/reply/1/delete" method="post" class="m-0">
+                                <button class="btn">🗑</button>
+                            </form>
+                        </div>
                     </div>
                     <hr>
                     <div class="reply">
@@ -54,10 +58,12 @@
                                 <div>↘ cos</div>
                                 <div style="margin-left: 12px">대댓글 내용입니다.</div>
                             </div>
-                            <div class="btn addSubReplyBtn" style="margin-left: 200px">➕</div>
-                            <form action="/reply/1/delete" method="post">
-                                <button class="btn">🗑</button>
-                            </form>
+                            <div class="d-flex align-items-center">
+                                <div class="btn addSubReplyBtn">➕</div>
+                                <form action="/reply/1/delete" method="post" class="m-0">
+                                    <button class="btn">🗑</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                     <div style="margin-top: 13px"></div>
@@ -70,9 +76,12 @@
                     <div class="px-1 me-1 bg-primary text-white rounded">ssar</div>
                     <div>댓글 내용입니다</div>
                 </div>
-                <form action="/reply/1/delete" method="post">
-                    <button class="btn">🗑</button>
-                </form>
+                <div class="d-flex align-items-center">
+                    <div class="btn addSubReplyBtn">➕</div>
+                    <form action="/reply/1/delete" method="post" class="m-0">
+                        <button class="btn">🗑</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -86,29 +95,63 @@
 
         // 대댓글의 왼쪽 마진 계산
         var marginLeft = 20; // 초기 마진 값
-        var existingReplies = document.querySelectorAll(".reply"); // 현재 존재하는 대댓글 요소들
-        if (existingReplies.length > 0) {
-            // 현재 존재하는 대댓글이 있을 경우
-            var lastReply = existingReplies[existingReplies.length - 1]; // 가장 마지막 대댓글 요소
-            var lastMarginLeft = parseInt(lastReply.style.marginLeft.replace("px", "")); // 가장 마지막 대댓글의 마진 값
-            marginLeft = lastMarginLeft + 20; // 이전 대댓글의 마진 값에 20을 더하여 새로운 마진 값 계산
-        }
+        // var existingReplies = document.querySelectorAll(".reply"); // 현재 존재하는 대댓글 요소들
+        // if (existingReplies.length > 0) {
+        //     // 현재 존재하는 대댓글이 있을 경우
+        //     var lastReply = existingReplies[existingReplies.length - 1]; // 가장 마지막 대댓글 요소
+        //     var lastMarginLeft = parseInt(lastReply.style.marginLeft.replace("px", "")); // 가장 마지막 대댓글의 마진 값
+        //     marginLeft = lastMarginLeft + 20; // 이전 대댓글의 마진 값에 20을 더하여 새로운 마진 값 계산
+        // }
+
+    //     // 대댓글 내용 및 스타일을 설정하여 div 요소에 추가
+    //     subReplyDiv.innerHTML = `
+    //
+    //     <hr>
+    //     <div class="d-flex justify-content-between align-items-center" style="margin-left: ${marginLeft}px">
+    //         <div>
+    //             <div>↘ cos</div>
+    //             <div style="margin-left: 20px">대댓글 내용입니다.</div>
+    //         </div>
+    //         <div class="d-flex align-items-center">
+    //             <div class="btn addSubReplyBtn">➕</div>
+    //             <form action="/reply/1/delete" method="post" class="m-0">
+    //                 <button class="btn">🗑</button>
+    //             </form>
+    //         </div>
+    //     </div>
+    //     <!-- 추가 대댓글 등록을 위한 폼 등등 -->
+    // `;
 
         // 대댓글 내용 및 스타일을 설정하여 div 요소에 추가
         subReplyDiv.innerHTML = `
+
+        <div class="card-body">
+            <form id="commentForm" action="" method="post" enctype="application/x-www-form-urlencoded">
+                <textarea class="form-control" rows="2" name="comment"></textarea>
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn mt-1">▶</button>
+                </div>
+            </form>
+        </div>
+
+<!--
         <hr>
         <div class="d-flex justify-content-between align-items-center" style="margin-left: ${marginLeft}px">
             <div>
                 <div>↘ cos</div>
-                <div style="margin-left: 12px">대댓글 내용입니다.</div>
+                <div style="margin-left: 20px">대댓글 내용입니다.</div>
             </div>
-            <div class="btn addSubReplyBtn" style="margin-left: 200px">➕</div>
-            <form action="/reply/1/delete" method="post">
-                <button class="btn">🗑</button>
-            </form>
+            <div class="d-flex align-items-center">
+                <div class="btn addSubReplyBtn">➕</div>
+                <form action="/reply/1/delete" method="post" class="m-0">
+                    <button class="btn">🗑</button>
+                </form>
+            </div>
         </div>
-        <!-- 추가 대댓글 등록을 위한 폼 등등 -->
+-->
     `;
+
+
 
         // 대댓글을 추가할 부모 요소 선택
         var parentDiv = document.querySelector(".reply");

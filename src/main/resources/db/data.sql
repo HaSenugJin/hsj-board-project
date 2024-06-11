@@ -1,0 +1,1 @@
+insert into user_tb(email, username, password, name, created_at) values ('ssar@nate.com', 'ssar', '$2a$10$5Z2/Wx9Lc8jCDSOz9pd6FOSFa3rou4lkf9gzFFrSzddRibYJAafau', '하승진', now());

@@ -1,15 +1,22 @@
 package org.example.hsjboardproject.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import lombok.AllArgsConstructor;
+import org.example.hsjboardproject.controller.user.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+@AllArgsConstructor
 @Controller
 public class BoardController {
-
+    private final HttpSession session;
     @GetMapping("/" )
     public String index() {
+        User user = (User) session.getAttribute("sessionUser");
+        System.out.println(user.getUsername());
         return "index";
     }
 
