@@ -7,7 +7,7 @@
     <div class="card">
         <div class="card-header"><b>글쓰기 화면입니다</b></div>
         <div class="card-body">
-            <form id="contentForm" action="/board/save" method="post" enctype="application/x-www-form-urlencoded">
+            <form id="contentForm" action="/board/save" method="post" enctype="multipart/form-data">
                 <div class="mb-3">
                     <input type="text" class="form-control" placeholder="Enter title" name="title">
                 </div>
@@ -24,15 +24,8 @@
                     <button id="btn-strike" type="button" style="border-radius: 4px">
                         <s>중간선</s>
                     </button>
-<!--                    <button id="btn-ordered-list" type="button" style="border-radius: 4px">-->
-<!--                        OLs-->
-<!--                    </button>-->
-<!--                    <button id="btn-unordered-list" type="button" style="border-radius: 4px">-->
-<!--                        UL-->
-<!--                    </button>-->
-                    <button id="btn-image" type="button" style="border-radius: 4px">
-                        사진
-                    </button>
+                    <input name="imgFile" id="imgFile" type="file" style="border-radius: 4px" accept="image/*" required
+                           multiple>
                 </div>
                 <div id="content" contenteditable="true"
                      style="padding: 16px 24px;border: 1px solid #D6D6D6;border-radius: 4px;"></div>
@@ -45,8 +38,6 @@
                     const btnItalic = document.getElementById('btn-italic');
                     const btnUnderline = document.getElementById('btn-underline');
                     const btnStrike = document.getElementById('btn-strike');
-                    // const btnOrderedList = document.getElementById('btn-ordered-list');
-                    // const btnUnorderedList = document.getElementById('btn-unordered-list');
                     const contentForm = document.getElementById('contentForm');
 
                     // 버튼을 클릭시 발동되는 이벤트 리스터로, 텍스트의 스타일을 변경합니다.
@@ -66,14 +57,6 @@
                         setStyle('strikeThrough')
                     });
 
-                    // btnOrderedList.addEventListener('click', function () {
-                    //     setStyle('insertOrderedList');
-                    // });
-                    //
-                    // btnUnorderedList.addEventListener('click', function () {
-                    //     setStyle('insertUnorderedList');
-                    // });
-
                     // 지정된 스타일을 에디터에 적용하는 함수
                     function setStyle(style) {
                         document.execCommand(style); // execCommand를 사용하여 스타일 적용
@@ -88,6 +71,20 @@
                     // 폼 제출 시 content의 HTML을 inputContent에 복사
                     contentForm.addEventListener('submit', function () {
                         inputContent.value = content.innerHTML;
+                    });
+
+                    $(document).ready(function () {
+                        $('#imgFile').change(function (event) {
+                            if (this.files && this.files[0]) {
+                                var reader = new FileReader();
+                                reader.onload = function (e) {
+                                    $('#content').html('<img src="' + e.target.result + '" style="width: 300px; height: 300px">');
+                                };
+                                reader.readAsDataURL(this.files[0]);
+                                let fileName = this.files[0].name;
+                                console.log(fileName);
+                            }
+                        });
                     });
                 </script>
                 <button type="submit" class="btn btn-primary form-control" style="margin-top: 15px">글쓰기완료</button>
