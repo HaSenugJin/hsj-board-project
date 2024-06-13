@@ -12,14 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class BoardController {
     private final HttpSession session;
+
     @GetMapping("/" )
     public String index() {
-        User user = (User) session.getAttribute("sessionUser");
-        if(user == null) {
-            return "redirect:/login-form";
-        } else {
-            System.out.println(user.getUsername());
-        }
 
         return "index";
     }
